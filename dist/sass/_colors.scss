@@ -1,0 +1,117 @@
+@use "sass:color";
+@use "sass:meta";
+
+/* base colors */
+$white: white;
+$gray: hsl(0, 0%, 75%);
+$black: black;
+$focus: hsl(205, 100%, 50%);
+$danger: hsl(7, 80%, 50%);
+$transparent: hsla(0, 0%, 0%, 0%);
+
+$colors: (white: $white, gray: $gray, black: $black, focus: $focus, danger: $danger);
+
+/* semantic shortcuts */
+$foreground: $black;
+$background: $white;
+
+/* adjustment parameters */
+$-transparent: 0.5;
+$-lighter: 1.25;
+$-darker: 0.26;
+$-text-darker: $-darker - 0.15;
+$-text-lighter: $-lighter + 0.75;
+$-text-cutoff: 60%;
+
+@function hslaReplace($color, $hue: false, $saturation: false, $lightness: false, $alpha: false) {
+    @if $hue == false {
+        $hue: color.hue(($color));
+    }
+    @if $saturation == false {
+        $saturation: color.saturation($color);
+    }
+    @if $lightness == false {
+        $lightness: color.lightness($color);
+    }
+    @if $alpha == false {
+        $alpha: color.alpha($color);
+    }
+    @return hsla($hue, $saturation, $lightness, $alpha);
+}
+
+@function textOn($c, $adjustment: null) {
+    $computed: null;
+    @if $adjustment == $-lighter {
+        $computed: $-text-lighter;
+    } @else if $adjustment == $-darker {
+        $computed: $-text-darker;
+    } @else if (color.lightness($c) <= $-text-cutoff) {
+        $computed: $-text-lighter;
+    } @else {
+        $computed: $-text-darker;
+    }
+
+    @return hslaReplace(color.complement($c), $lightness: $computed * color.lightness($c));
+}
+
+@function identity($c) {
+    @return $c;
+}
+
+@function lighter($c) {
+    @return hslaReplace($c, $lightness: $-lighter * color.lightness($c));
+}
+
+@function darker($c) {
+    @return hslaReplace($c, $lightness: $-darker * color.lightness($c));
+}
+
+@function transparent($c) {
+    @return hslaReplace($c, $alpha: $-transparent);
+}
+
+@mixin background($c) {
+    background: $c;
+    color: textOn($c);
+    border-color: darker($c);
+}
+
+@mixin fill($c) {
+    fill: $c;
+    background: unset;
+}
+
+@mixin -all-colors-mixin($selector, $color) {
+    #{$selector} {
+        @include background($color);
+    }
+
+    #{$selector} > svg {
+        @include fill(textOn($color));
+    }
+
+    svg#{$selector} {
+        @include fill($color);
+    }
+
+    #{$selector}.foreground {
+        color: $color;
+        background: unset;
+    }
+}
+
+// TODO when dynamic mixins are available, this should be private (since it wouldn't be needed externally)
+$null: "`null`"; // a string to use as a key when what I really want is a null value
+
+@each $name, $color in $colors {
+    @each $opacity, $opacityTransformation in (#{$null}: meta.get-function("identity"), transparent: meta.get-function("transparent")) {
+        $opacitySelector: if($opacity == $null, ".#{$name}", ".#{$name}.#{$opacity}");
+
+        @each $lightness, $lightnessTransformation in (#{$null}: meta.get-function("identity"), light: meta.get-function("lighter"), dark: meta.get-function("darker")) {
+            $selector: if($lightness == $null, $opacitySelector, "#{$opacitySelector}.#{$lightness}");
+
+            // TODO someday there will be dynamic mixins! https://github.com/sass/sass/issues/626
+            @include -all-colors-mixin($selector, meta.call($lightnessTransformation, meta.call($opacityTransformation, $color)));
+        }
+    }
+}

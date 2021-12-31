@@ -1,0 +1,67 @@
+@use "../stylesheets/colors";
+@use "../stylesheets/spacing";
+@use "../stylesheets/css_tricks";
+@use "../stylesheets/visual";
+
+.tabbed {
+    --tabbed-width: calc(100% - 2 * #{spacing.$padding-major} - 2px);
+    --tabbed-height: calc(100% - 6 * #{spacing.$padding-major} - 2px);
+
+    .tabs {
+        margin-top: spacing.$padding-major;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        position: relative;
+
+        .tab {
+            border-top-left-radius: spacing.$border-radius-minor;
+            border-top-right-radius: spacing.$border-radius-minor;
+            padding: spacing.$padding-minor spacing.$padding-major;
+            border: solid css_tricks.$one-px colors.$gray;
+            border-bottom: none;
+            position: relative;
+
+            .hack { // FIXME this is a hack
+                @include colors.background(colors.$background);
+                position: absolute;
+                top: calc(2 * #{spacing.$border-radius-minor} + 1em);
+                left: 0;
+                right: 0;
+                bottom: calc(-1 * #{spacing.$padding-major});
+            }
+        }
+
+        .tab:not(.active) {
+            .hack {
+                display: none;
+            }
+        }
+
+        .tab.active {
+            @include visual.shadow(colors.$focus);
+        }
+
+        .tab:not(:first-child) {
+            border-top-left-radius: 0;
+        }
+
+        .tab:not(:last-child) {
+            border-top-right-radius: 0;
+        }
+    }
+
+    .tab-content {
+        @include colors.background(colors.$background);
+        width: var(--tabbed-width);
+        height: var(--tabbed-height);
+        padding: spacing.$padding-major;
+        border: solid css_tricks.$one-px colors.$gray;
+        border-radius: spacing.$border-radius-major;
+        border-top-left-radius: 0;
+    }
+
+    .tab-content:not(.active) {
+        display: none;
+    }
+}

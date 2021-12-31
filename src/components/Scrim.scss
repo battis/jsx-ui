@@ -1,0 +1,30 @@
+@use "../stylesheets/colors";
+@use "../stylesheets/layers";
+@use "sass:meta";
+
+.scrim {
+    --z-index: 0;
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    z-index: var(--z-index);
+}
+
+@mixin -all-colors-mixin($selector, $color) {
+    #{$selector}.scrim.round {
+        border-radius: 50%;
+        background: radial-gradient($color 50%, transparent 70%);
+    }
+}
+
+// TODO someday there will be dynamic mixins! https://github.com/sass/sass/issues/626
+@each $name, $color in colors.$colors {
+    @each $opacity, $opacityTransformation in (#{colors.$null}: meta.get-function("identity", $module: "colors"), transparent: meta.get-function("transparent", $module: "colors")) {
+        $opacitySelector: if($opacity == colors.$null, ".#{$name}", ".#{$name}.#{$opacity}");
+
+        @each $lightness, $lightnessTransformation in (#{colors.$null}: meta.get-function("identity", $module: "colors"), light: meta.get-function("lighter", $module: "colors"), dark: meta.get-function("darker", $module: "colors")) {
+            $selector: if($lightness == colors.$null, $opacitySelector, "#{$opacitySelector}.#{$lightness}");
+            @include -all-colors-mixin($selector, meta.call($lightnessTransformation, meta.call($opacityTransformation, $color)));
+        }
+    }
+}

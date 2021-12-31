@@ -1,0 +1,11 @@
+@use "../stylesheets/spacing";
+@use "../stylesheets/css_tricks";
+
+.button {
+    padding: spacing.$padding-minor spacing.$padding-major;
+    position: relative;
+    font-size: 1em;
+    border-radius: spacing.$border-radius-minor;
+    border: solid css_tricks.$one-px;
+    line-height: 1em;
+}

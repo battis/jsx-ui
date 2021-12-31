@@ -1,0 +1,46 @@
+@use "../stylesheets/colors";
+@use "../stylesheets/spacing";
+@use "../stylesheets/layers";
+@use "../stylesheets/css_tricks";
+
+.navbar:not(.body) {
+    width: calc(100% - 2 * #{spacing.$padding-major});
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: spacing.$padding-major calc(#{css_tricks.$scrollbar-width} + #{spacing.$padding-major}) 1em 1em;
+    z-index: layers.$navbar;
+
+    .links {
+        display: flex;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        overflow-x: auto;
+        margin: 0 -0.5em; /* in combination with *** below, works  better than gap when overflowing */
+
+        .link {
+            white-space: nowrap;
+            margin: 0 0.5em; /* *** https://stackoverflow.com/q/20626685/294171 */
+        }
+
+        .link:hover {
+            @include colors.background(colors.$focus);
+        }
+
+        a.link {
+            text-decoration: none;
+            color: colors.textOn(colors.lighter(colors.$gray));
+        }
+
+        .link.active {
+            font-weight: bold;
+        }
+    }
+
+}
+
+
+.navbar.body {
+    margin: 1em;
+}

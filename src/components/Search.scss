@@ -1,0 +1,28 @@
+@use "../stylesheets/colors";
+@use "../stylesheets/spacing";
+@use "../stylesheets/form";
+
+.search-wrapper {
+    margin: 0;
+
+    .search-query {
+        //width: 100%;
+    }
+
+    .search-results {
+        position: absolute;
+        max-width: calc(100% - 2em);
+        max-height: calc(100% - 2em);
+        overflow: auto;
+
+        .search-result {
+            padding: spacing.$padding-minor;
+        }
+
+        .search-result:hover,
+        .search-result.selected {
+            @include colors.background(colors.$focus);
+        }
+    }
+
+}

@@ -1,0 +1,24 @@
+@use "../stylesheets/colors";
+@use "../stylesheets/spacing";
+
+.draggable.dragging:not(.proxy) {
+    color: var(--gray-light, lightgray);
+}
+
+.draggable.dragging:not(.proxy) svg {
+    fill: var(--gray-light, lightgray)
+}
+
+.draggable.dragging.proxy {
+    border: dashed 2px var(--gray, gray);
+    border-radius: spacing.$border-radius-major;
+    color: var(--background);
+}
+
+.draggable.dragging.proxy svg {
+    display: none
+}
+
+.draggable.container.target {
+    padding-bottom: 2em;
+}

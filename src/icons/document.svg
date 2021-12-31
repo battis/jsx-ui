@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1024 1024"
+    preserveAspectRatio="xMidYMid meet"
+>
+    <style type="text/css">
+        .page{fill:white; stroke: black; stroke-width: 50}
+        .corner{fill:white; stroke: black; stroke-width: 25;}
+    </style>
+    <polygon class="page" points="181,1023.5 181,0.5 683.79,0.5 843,160.21 843,1023.5 	"/>
+    <polygon class="corner" points="683.5,160 843,160 683.5,0.5 "/>
+</svg>

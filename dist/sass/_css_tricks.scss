@@ -1,0 +1,12 @@
+/* Chrome renders an extra pixel inside 1px borders, because... bug? */
+$one-px: 0.99px;
+
+/* it sure would be keen to be able to layout around the scrollbar... if it's there! */
+:root {
+    /* https://stackoverflow.com/a/64902604 */
+    --scrollbar-width: max(1em, calc(100vw - 100%)); // FIXME stupid thing doesn't stupid work, so we'll throw in a 1em default just in case
+    --scrollbar-height: max(1em, calc(100vh - 100%));
+}
+$scrollbar-width: var(--scrollbar-width);
+$scrollbar-height: var(--scrollbar-height);
+

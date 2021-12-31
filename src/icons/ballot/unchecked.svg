@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg
+    version="1.1"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 13.5 16"
+    width="16"
+    height="16"
+    preserveAspectRatio="xMidYMid meet"
+>
+    <path class="ballot-box" d="M0,3.4h12.6V16H0V3.4z M11.5,14.9V4.5H1.1v10.4H11.5z"/>
+</svg>

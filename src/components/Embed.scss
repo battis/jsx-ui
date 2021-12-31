@@ -1,0 +1,9 @@
+body.embed {
+    overflow: hidden;
+    background: none transparent;
+
+    .embed-wrapper {
+        position: absolute;
+        inset: 0;
+    }
+}

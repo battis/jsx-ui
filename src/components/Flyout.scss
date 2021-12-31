@@ -1,0 +1,131 @@
+@use "../stylesheets/colors";
+@use "../stylesheets/css_tricks";
+@use "../stylesheets/spacing";
+@use "../stylesheets/layers";
+
+.scrim {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+.flyout {
+    display: inline-block;
+    position: relative;
+    padding: spacing.$padding-minor;
+    border-radius: spacing.$border-radius-minor;
+
+    /* for IntelliSense in positioning styles */
+    --anchor-height: 0;
+    --anchor-width: 0;
+    --menu-height: 0;
+    --menu-width: 0;
+
+    .anchor {
+        display: inline-block;
+    }
+
+    .menu {
+        background: none;
+        padding: spacing.$padding-major;
+        margin: 0;
+        display: inline-block;
+        position: absolute;
+        z-index: layers.$flyout;
+
+        .menu-items {
+            color: colors.$foreground;
+            background: colors.$background;
+            border: solid css_tricks.$one-px black;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            justify-content: stretch;
+            align-content: flex-start;
+            width: fit-content;
+            height: fit-content;
+            z-index: layers.$flyout;
+
+            .item {
+                display: block;
+                padding: spacing.$padding-minor spacing.$padding-major;
+                white-space: nowrap;
+                cursor: default;
+                text-align: left;
+                width: auto;
+                border:none;
+                z-index: layers.$flyout;
+            }
+
+            .item:not(.disabled):hover {
+                @include colors.background(colors.$focus);
+            }
+
+            .item.disabled {
+                color: colors.$gray;
+            }
+
+            a.item {
+                text-decoration: none;
+            }
+
+            a.item:visited {
+                color: colors.$foreground;
+            }
+        }
+    }
+}
+
+.flyout.open {
+    @include colors.background(colors.$focus);
+}
+
+.flyout:not(.open) {
+    .menu,
+    .scrim {
+        display: none;
+    }
+}
+
+@each $dir, $anchorEdge in (top: bottom, bottom: top, left: right, right: left) {
+    .flyout {
+        --flyout-offset-#{$dir}: 0;
+    }
+
+    .flyout.#{$dir} {
+        .menu {
+            #{$anchorEdge}: 0;
+            #{$dir}: unset;
+        }
+    }
+
+    .flyout.flush-#{$dir} {
+        .menu {
+            padding-#{$dir}: 0;
+        }
+    }
+
+    .flyout.offset-#{$dir} {
+        .menu {
+            padding-#{$dir}: var(--flyout-offset-#{$dir});
+        }
+    }
+}
+
+.flyout.open:not(.top):not(.bottom) {
+    .menu {
+        top: calc((var(--menu-height) - var(--anchor-height)) / -2);
+        bottom: unset;
+    }
+}
+
+.flyout.open:not(.left):not(.right) {
+    .menu {
+        left: calc((var(--menu-width) - var(--anchor-width)) / -2);
+        right: unset;
+    }
+}
+

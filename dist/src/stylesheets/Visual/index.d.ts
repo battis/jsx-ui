@@ -1,4 +1,4 @@
-import './visual.scss';
+import "./visual.scss";
 declare type ElementModifier = <T extends Element>(element: T, ...rest: any[]) => T;
 declare type ElementWrapper = <T extends Element, U extends Element>(element: T, ...rest: any[]) => U;
 export default class Visual {

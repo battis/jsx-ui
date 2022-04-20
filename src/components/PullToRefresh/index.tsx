@@ -1,8 +1,9 @@
 import JSXFactory, { JSXComponent, render } from "@battis/jsx-factory";
 import { AsynchronousFunction } from "@battis/typescript-tricks";
-import Visual from "../stylesheets/Visual";
-import Icon from "./Icon";
-import Loading from "./Loading";
+import Visual from "../../stylesheets/Visual";
+import Icon from "../Icon";
+import Loading from "../Loading";
+import SVG from "./svg/";
 import "./PullToRefresh.scss";
 
 export type PullToRefreshConfig = {
@@ -16,16 +17,14 @@ export type PullToRefreshConfig = {
   delay?: number;
 };
 
-const Top = JSXFactory.elementFromSource(require("../icons/stretcher/top.svg"));
-const MiddleStretching = JSXFactory.elementFromSource(
-  require("../icons/stretcher/middle-stretching.svg")
-);
-const BottomStretching = JSXFactory.elementFromSource(
-  require("../icons/stretcher/bottom-stretching.svg")
-);
-const Bottom = JSXFactory.elementFromSource(
-  require("../icons/stretcher/bottom.svg")
-);
+const Stretcher = {
+  Top: JSXFactory.elementFromSource(SVG.Top),
+  Bottom: JSXFactory.elementFromSource(SVG.Bottom),
+  Stretching: {
+    Middle: JSXFactory.elementFromSource(SVG.Stretching.Middle),
+    Bottom: JSXFactory.elementFromSource(SVG.Stretching.Bottom),
+  },
+};
 
 export default class PullToRefresh implements JSXComponent {
   private readonly refresh: AsynchronousFunction;
@@ -48,16 +47,16 @@ export default class PullToRefresh implements JSXComponent {
     refresh,
     loadingMessage = (
       <div class="stretcher-wrapper">
-        <Top />
-        <Bottom />
+        <Stretcher.Top />
+        <Stretcher.Bottom />
         <Loading />
       </div>
     ),
     stretcher = (
       <div class="stretcher-wrapper">
-        <Top />
-        <MiddleStretching />
-        <BottomStretching />
+        <Stretcher.Top />
+        <Stretcher.Stretching.Middle />
+        <Stretcher.Stretching.Bottom />
         <Icon.Loading />
       </div>
     ),

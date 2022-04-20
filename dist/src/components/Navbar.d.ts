@@ -1,5 +1,5 @@
-import { JSXComponent } from '@battis/jsx-factory';
-import './Navbar.scss';
+import { JSXComponent } from "@battis/jsx-factory";
+import "./Navbar.scss";
 /**
  * Navigation bar
  *

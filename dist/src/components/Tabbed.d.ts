@@ -1,5 +1,5 @@
-import { Component } from '@battis/jsx-components';
-import './Tabbed.scss';
+import { Component } from "@battis/jsx-components";
+import "./Tabbed.scss";
 declare class TabContent extends Component {
     private _name;
     readonly id: any;

@@ -7,5 +7,6 @@
     "jsxFactory": "JSXFactory.createElement",
     "jsxFragmentFactory": "JSXFactory.createFragment",
     "noImplicitAny": false
-  }
+  },
+  "include": ["**/*", "src/types.d.ts"]
 }

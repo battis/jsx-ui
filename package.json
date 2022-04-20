@@ -1,41 +1,38 @@
 {
   "name": "@battis/jsx-ui",
-  "version": "1.0.1",
   "description": "UI elements for JSX apps",
+  "version": "1.0.0",
+  "author": "Seth Battis <seth@battis.net>",
+  "license": "GPL-3.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "webpack --config webpack.prod.js"
-  },
+  "homepage": "https://github.com/battis/jsx-ui#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/battis/jsx-ui.git"
   },
-  "author": "Seth Battis <seth@battis.net>",
-  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/battis/jsx-ui/issues"
   },
-  "homepage": "https://github.com/battis/jsx-ui#readme",
+  "scripts": {
+    "build": "webpack"
+  },
   "dependencies": {
-    "-": "^0.0.1",
     "@battis/jsx-components": "battis/jsx-components",
     "@battis/jsx-factory": "battis/jsx-factory",
     "@battis/jsx-lib": "battis/jsx-lib",
     "@battis/jsx-routing": "battis/jsx-routing",
     "@battis/monkey-patches": "battis/monkey-patches",
-    "@types/node": "^17.0.24"
+    "@battis/typescript-tricks": "battis/typescript-tricks",
+    "path-browserify": "^1.0.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
-    "autoprefixer": "^10.4.4",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
-    "css-minimizer-webpack-plugin": "^3.4.1",
-    "file-loader": "^6.2.0",
-    "mini-css-extract-plugin": "^2.6.0",
-    "path-browserify": "^1.0.1",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.12",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.4.3",
@@ -46,7 +43,6 @@
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.3",
     "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-merge": "^5.8.0"
+    "webpack-cli": "^4.9.2"
   }
 }

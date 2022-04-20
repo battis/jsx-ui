@@ -1,6 +1,7 @@
 /.nova/
 /node_modules/
 /src/
+/tests/
 /index.*
 tsconfig.*
 webpack.*

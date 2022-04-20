@@ -1,9 +1,9 @@
 import JSXFactory from "@battis/jsx-factory";
-import { Nullable } from "@battis/typescript-tricks";
 import "./Icon.scss";
+import SVG from "./svg/";
 
 export const loadIcon = (svgSource: string) => {
-  return (props: Nullable<object> = {}) => {
+  return (props = {}) => {
     const icon = JSXFactory.elementFromSource(svgSource)();
     if (props) {
       for (const name of Object.getOwnPropertyNames(props)) {
@@ -18,22 +18,22 @@ export const loadIcon = (svgSource: string) => {
 export const LoadingIcon = () => {
   return (props = {}) => {
     // FIXME props are not being passed into the loading icon
-    const icon = loadIcon(require("../icons/loading.svg"))(props);
+    const icon = loadIcon(SVG.Loading)(props);
     return <span class="loading">{icon}</span>;
   };
 };
 
 const Icon = {
-  Add: loadIcon(require("../icons/add.svg")),
+  Add: loadIcon(SVG.Add),
   Ballot: {
-    Checked: loadIcon(require("../icons/ballot/checked.svg")),
-    Unchecked: loadIcon(require("../icons/ballot/unchecked.svg")),
+    Checked: loadIcon(SVG.Ballot.Checked),
+    Unchecked: loadIcon(SVG.Ballot.Unchecked),
   },
-  Close: loadIcon(require("../icons/close.svg")),
-  Document: loadIcon(require("../icons/document.svg")),
-  Ellipsis: loadIcon(require("../icons/ellipsis.svg")),
+  Close: loadIcon(SVG.Close),
+  Document: loadIcon(SVG.Document),
+  Ellipsis: loadIcon(SVG.Ellipsis),
   Loading: LoadingIcon,
-  Delete: loadIcon(require("../icons/close.svg")),
-  User: loadIcon(require("../icons/user.svg")),
+  Delete: loadIcon(SVG.Close),
+  User: loadIcon(SVG.User),
 };
 export default Icon;

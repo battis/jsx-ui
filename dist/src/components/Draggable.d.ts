@@ -1,6 +1,6 @@
-import { Component, Container } from '@battis/jsx-components';
-import { Constructor, Mixin } from '@battis/typescript-tricks';
-import './Draggable.scss';
+import { Component, Container } from "@battis/jsx-components";
+import { Constructor, Mixin } from "@battis/typescript-tricks";
+import "./Draggable.scss";
 export declare type DropDescriptor = {
     dropped: Component;
     source: Container<any>;

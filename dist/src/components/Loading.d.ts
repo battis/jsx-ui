@@ -1,4 +1,4 @@
-import { JSXComponent } from '@battis/jsx-factory';
+import { JSXComponent } from "@battis/jsx-factory";
 export default class Loading implements JSXComponent {
     private props;
     constructor(props?: any);
